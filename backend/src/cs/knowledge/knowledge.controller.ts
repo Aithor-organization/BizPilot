@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -13,12 +14,16 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { TenantMemberGuard } from '../tenant/guards/tenant-member.guard';
 import { KnowledgeService } from './knowledge.service';
+import { RagService } from './rag.service';
 import { UploadDocumentDto } from './dto/upload-document.dto';
 
 @Controller('api/omnidesk/tenants/:tenantId/knowledge')
 @UseGuards(JwtAuthGuard, TenantMemberGuard)
 export class KnowledgeController {
-  constructor(private knowledgeService: KnowledgeService) {}
+  constructor(
+    private knowledgeService: KnowledgeService,
+    private ragService: RagService,
+  ) {}
 
   @Post('documents')
   @UseInterceptors(
@@ -55,5 +60,14 @@ export class KnowledgeController {
   @Delete('documents/:id')
   delete(@Param('tenantId') tenantId: string, @Param('id') id: string) {
     return this.knowledgeService.delete(tenantId, id);
+  }
+
+  @Post('search')
+  async search(
+    @Param('tenantId') tenantId: string,
+    @Body() body: { query: string; topK?: number },
+  ) {
+    const results = await this.ragService.search(tenantId, body.query, body.topK ?? 5);
+    return { results, query: body.query };
   }
 }

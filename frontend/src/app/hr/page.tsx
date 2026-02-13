@@ -52,11 +52,11 @@ export default function HrPage() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">직원 관리</h1>
-          <p className="mt-1 text-sm text-gray-500">직원 정보와 출퇴근을 관리하세요.</p>
+          <h1 className="text-2xl font-bold text-surface-900">직원 관리</h1>
+          <p className="mt-1 text-sm text-surface-500">직원 정보와 출퇴근을 관리하세요.</p>
         </div>
         <div className="flex gap-2">
-          <Link href="/hr/leaves" className="flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50">
+          <Link href="/hr/leaves" className="flex items-center gap-1 rounded-lg border px-4 py-2 text-sm font-medium text-surface-600 hover:bg-surface-50">
             <Clock className="h-4 w-4" /> 휴가 관리
           </Link>
           <button onClick={() => setShowForm(true)} className="flex items-center gap-1 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
@@ -66,35 +66,35 @@ export default function HrPage() {
       </div>
 
       {showForm && (
-        <div className="mt-4 rounded-xl border bg-white p-6">
+        <div className="mt-4 card-surface p-6">
           <h3 className="text-lg font-semibold">새 직원 등록</h3>
           <form onSubmit={(e) => { e.preventDefault(); createMutation.mutate({ ...form, payRate: parseInt(form.payRate) || 0 }); }} className="mt-4 grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">이름 *</label>
+              <label className="block text-sm font-medium text-surface-700">이름 *</label>
               <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">전화번호</label>
+              <label className="block text-sm font-medium text-surface-700">전화번호</label>
               <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">직책</label>
+              <label className="block text-sm font-medium text-surface-700">직책</label>
               <input type="text" value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" placeholder="매니저, 스태프" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">급여 유형</label>
+              <label className="block text-sm font-medium text-surface-700">급여 유형</label>
               <select value={form.payType} onChange={(e) => setForm({ ...form, payType: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm">
                 <option value="HOURLY">시급</option>
                 <option value="MONTHLY">월급</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">급여 (원)</label>
+              <label className="block text-sm font-medium text-surface-700">급여 (원)</label>
               <input type="number" value={form.payRate} onChange={(e) => setForm({ ...form, payRate: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div className="flex items-end gap-2">
               <button type="submit" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white">등록</button>
-              <button type="button" onClick={() => setShowForm(false)} className="rounded-lg border px-4 py-2 text-sm text-gray-600">취소</button>
+              <button type="button" onClick={() => setShowForm(false)} className="rounded-lg border px-4 py-2 text-sm text-surface-600">취소</button>
             </div>
           </form>
         </div>
@@ -102,14 +102,14 @@ export default function HrPage() {
 
       <div className="mt-6 grid grid-cols-2 gap-4">
         {employees?.map((emp: Record<string, any>) => (
-          <div key={emp.id as string} className="rounded-xl border bg-white p-5">
+          <div key={emp.id as string} className="card-surface p-5">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-lg font-semibold text-gray-900">{emp.name as string}</p>
-                <p className="text-sm text-gray-500">{(emp.role as string) || '미지정'} | {(emp.payType as string) === 'HOURLY' ? '시급' : '월급'} {formatCurrency(emp.payRate as number)}</p>
-                {emp.phone && <p className="text-sm text-gray-400">{String(emp.phone)}</p>}
+                <p className="text-lg font-semibold text-surface-900">{emp.name as string}</p>
+                <p className="text-sm text-surface-500">{(emp.role as string) || '미지정'} | {(emp.payType as string) === 'HOURLY' ? '시급' : '월급'} {formatCurrency(emp.payRate as number)}</p>
+                {emp.phone && <p className="text-sm text-surface-400">{String(emp.phone)}</p>}
               </div>
-              <div className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${(emp.isActive as boolean) ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+              <div className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${(emp.isActive as boolean) ? 'bg-green-100 text-green-700' : 'bg-surface-100 text-surface-500'}`}>
                 {(emp.isActive as boolean) ? '재직' : '퇴사'}
               </div>
             </div>
@@ -126,7 +126,7 @@ export default function HrPage() {
           </div>
         ))}
         {!employees?.length && (
-          <div className="col-span-2 rounded-xl border bg-white py-12 text-center text-gray-400">
+          <div className="col-span-2 card-surface py-12 text-center text-surface-400">
             등록된 직원이 없습니다.
           </div>
         )}

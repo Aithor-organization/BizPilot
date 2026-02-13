@@ -25,35 +25,35 @@ export default function InvoiceDetailPage() {
 
   return (
     <div>
-      <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 mb-4">
+      <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-surface-500 hover:text-surface-700 mb-4">
         <ArrowLeft className="h-4 w-4" /> 목록으로
       </button>
 
-      <div className="rounded-xl border bg-white p-8 max-w-3xl">
+      <div className="card-surface p-8 max-w-3xl">
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{typeLabels[invoice.type]}</h1>
-            <p className="text-lg text-gray-500">{invoice.invoiceNumber}</p>
+            <h1 className="text-2xl font-bold text-surface-900">{typeLabels[invoice.type]}</h1>
+            <p className="text-lg text-surface-500">{invoice.invoiceNumber}</p>
           </div>
           <div className="text-right">
             <span className="rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-700">
               {statusLabels[invoice.status]}
             </span>
-            <p className="mt-2 text-sm text-gray-500">발행일: {formatDate(invoice.issueDate)}</p>
-            {invoice.dueDate && <p className="text-sm text-gray-500">만기일: {formatDate(invoice.dueDate)}</p>}
+            <p className="mt-2 text-sm text-surface-500">발행일: {formatDate(invoice.issueDate)}</p>
+            {invoice.dueDate && <p className="text-sm text-surface-500">만기일: {formatDate(invoice.dueDate)}</p>}
           </div>
         </div>
 
         {invoice.customer && (
-          <div className="mt-6 rounded-lg bg-gray-50 p-4">
-            <p className="text-sm font-medium text-gray-700">고객: {invoice.customer.name}</p>
-            {invoice.customer.phone && <p className="text-sm text-gray-500">{invoice.customer.phone}</p>}
+          <div className="mt-6 rounded-lg bg-surface-50 p-4">
+            <p className="text-sm font-medium text-surface-700">고객: {invoice.customer.name}</p>
+            {invoice.customer.phone && <p className="text-sm text-surface-500">{invoice.customer.phone}</p>}
           </div>
         )}
 
         <table className="mt-6 w-full">
           <thead>
-            <tr className="border-b text-left text-xs font-medium text-gray-500 uppercase">
+            <tr className="border-b text-left text-xs font-medium text-surface-500 uppercase">
               <th className="pb-3">품목</th>
               <th className="pb-3 text-right w-20">수량</th>
               <th className="pb-3 text-right w-28">단가</th>
@@ -74,8 +74,8 @@ export default function InvoiceDetailPage() {
 
         <div className="mt-4 flex justify-end">
           <div className="w-64 space-y-1 text-sm">
-            <div className="flex justify-between"><span className="text-gray-500">공급가액</span><span>{formatCurrency(invoice.subtotal)}</span></div>
-            {invoice.taxAmount > 0 && <div className="flex justify-between"><span className="text-gray-500">세액</span><span>{formatCurrency(invoice.taxAmount)}</span></div>}
+            <div className="flex justify-between"><span className="text-surface-500">공급가액</span><span>{formatCurrency(invoice.subtotal)}</span></div>
+            {invoice.taxAmount > 0 && <div className="flex justify-between"><span className="text-surface-500">세액</span><span>{formatCurrency(invoice.taxAmount)}</span></div>}
             <div className="flex justify-between border-t pt-2 text-lg font-bold">
               <span>합계</span>
               <span>{formatCurrency(invoice.totalAmount)}</span>
@@ -84,13 +84,13 @@ export default function InvoiceDetailPage() {
         </div>
 
         {invoice.note && (
-          <div className="mt-6 rounded-lg bg-gray-50 p-4">
-            <p className="text-sm text-gray-600">{invoice.note}</p>
+          <div className="mt-6 rounded-lg bg-surface-50 p-4">
+            <p className="text-sm text-surface-600">{invoice.note}</p>
           </div>
         )}
 
         <div className="mt-6 flex gap-2">
-          <button onClick={() => window.print()} className="flex items-center gap-1 rounded-lg border px-4 py-2 text-sm text-gray-600 hover:bg-gray-50">
+          <button onClick={() => window.print()} className="flex items-center gap-1 rounded-lg border px-4 py-2 text-sm text-surface-600 hover:bg-surface-50">
             <Printer className="h-4 w-4" /> 인쇄
           </button>
         </div>

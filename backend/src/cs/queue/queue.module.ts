@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaModule } from '../../prisma/prisma.module';
+import { KnowledgeModule } from '../knowledge/knowledge.module';
+import { CreditModule } from '../credit/credit.module';
 import { MessageProcessor } from './message-processor';
 import { DocumentProcessor } from './document-processor';
 import { BrainLearner } from './brain-learner';
@@ -9,6 +11,8 @@ import { BrainLearner } from './brain-learner';
 @Module({
   imports: [
     PrismaModule,
+    KnowledgeModule,
+    CreditModule,
     BullModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

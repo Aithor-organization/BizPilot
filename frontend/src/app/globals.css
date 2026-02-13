@@ -2,32 +2,344 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   BizPilot Design System - Warm Professional
+   Aesthetic: Trust + Warmth + Modern AI-powered SaaS
+   Color Strategy: Deep Navy + Warm Amber accent
+   ============================================================ */
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* ── Primitive Tokens (Tier 1) ── */
+    --navy-900: #0F1629;
+    --navy-800: #1B2559;
+    --navy-700: #243380;
+    --navy-600: #2D40A0;
+    --navy-500: #3B52C4;
+    --navy-400: #5B72D8;
+    --navy-300: #8B9EE8;
+    --navy-200: #BBC5F2;
+    --navy-100: #DDE2F8;
+    --navy-50: #EEF0FC;
+
+    --amber-900: #6B3A00;
+    --amber-800: #8B4D08;
+    --amber-700: #B36B0A;
+    --amber-600: #D4940A;
+    --amber-500: #E8A838;
+    --amber-400: #F0C060;
+    --amber-300: #F5D78A;
+    --amber-200: #FAE8B5;
+    --amber-100: #FDF3DA;
+    --amber-50: #FEFAED;
+
+    --stone-950: #0C0A09;
+    --stone-900: #1C1917;
+    --stone-800: #292524;
+    --stone-700: #44403C;
+    --stone-600: #57534E;
+    --stone-500: #78716C;
+    --stone-400: #A8A29E;
+    --stone-300: #D6D3D1;
+    --stone-200: #E7E5E4;
+    --stone-100: #F5F5F4;
+    --stone-50: #FAFAF9;
+
+    /* ── Semantic Tokens (Tier 2) ── */
+    --color-bg-primary: var(--stone-50);
+    --color-bg-secondary: #F5F3EF;
+    --color-bg-tertiary: #EDEBE6;
+    --color-bg-surface: #FFFFFF;
+    --color-bg-elevated: #FFFFFF;
+    --color-bg-brand: var(--navy-800);
+    --color-bg-accent: var(--amber-50);
+
+    --color-text-primary: var(--stone-900);
+    --color-text-secondary: var(--stone-500);
+    --color-text-tertiary: var(--stone-400);
+    --color-text-inverse: #FFFFFF;
+    --color-text-brand: var(--navy-800);
+    --color-text-accent: var(--amber-700);
+
+    --color-border-default: var(--stone-200);
+    --color-border-subtle: var(--stone-100);
+    --color-border-strong: var(--stone-300);
+    --color-border-brand: var(--navy-200);
+
+    --color-action-primary: var(--navy-800);
+    --color-action-primary-hover: var(--navy-700);
+    --color-action-secondary: var(--amber-600);
+    --color-action-secondary-hover: var(--amber-700);
+
+    --color-success: #16A34A;
+    --color-warning: #CA8A04;
+    --color-error: #DC2626;
+    --color-info: #0284C7;
+
+    /* ── Component Tokens (Tier 3) ── */
+    --background: 40 20% 98%;
+    --foreground: 24 10% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
+    --card-foreground: 24 10% 10%;
+    --primary: 230 53% 23%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 30% 95%;
+    --secondary-foreground: 24 10% 10%;
+    --muted: 40 20% 95%;
+    --muted-foreground: 25 5% 45%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 10% 88%;
+    --input: 30 10% 88%;
+    --ring: 230 53% 23%;
     --radius: 0.5rem;
+
+    /* ── Typography ── */
+    --font-display: 'Noto Sans KR', system-ui, -apple-system, sans-serif;
+    --font-body: 'Noto Sans KR', system-ui, -apple-system, sans-serif;
+
+    /* ── Spacing (8pt grid) ── */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+    --space-32: 8rem;
+
+    /* ── Shadows ── */
+    --shadow-xs: 0 1px 2px rgba(28, 25, 23, 0.04);
+    --shadow-sm: 0 1px 3px rgba(28, 25, 23, 0.06), 0 1px 2px rgba(28, 25, 23, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(28, 25, 23, 0.06), 0 2px 4px -1px rgba(28, 25, 23, 0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(28, 25, 23, 0.06), 0 4px 6px -2px rgba(28, 25, 23, 0.03);
+    --shadow-xl: 0 20px 25px -5px rgba(28, 25, 23, 0.06), 0 10px 10px -5px rgba(28, 25, 23, 0.02);
+  }
+
+  * {
+    border-color: var(--color-border-default);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+/* ── Background Patterns ── */
+@layer components {
+  /* 미세한 도트 패턴 - 대시보드/서브페이지용 */
+  .bg-pattern-dots {
+    background-color: var(--color-bg-primary);
+    background-image: radial-gradient(circle, var(--stone-300) 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  /* 미세한 그리드 패턴 */
+  .bg-pattern-grid {
+    background-color: var(--color-bg-primary);
+    background-image:
+      linear-gradient(var(--stone-200) 1px, transparent 1px),
+      linear-gradient(90deg, var(--stone-200) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* 따뜻한 그라디언트 - 랜딩페이지 Hero용 */
+  .bg-warm-hero {
+    background-color: var(--color-bg-primary);
+    background-image:
+      radial-gradient(ellipse 80% 60% at 70% 20%, rgba(27, 37, 89, 0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(232, 168, 56, 0.03) 0%, transparent 70%);
+  }
+
+  /* 브랜드 배경 - CTA/Footer */
+  .bg-brand-gradient {
+    background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-900) 100%);
+  }
+
+  /* 서브페이지 일관된 배경 */
+  .bg-app-surface {
+    background-color: #F8F7F4;
+    background-image: radial-gradient(circle, rgba(168, 162, 158, 0.12) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+  }
+
+  /* 사이드바용 */
+  .bg-sidebar {
+    background-color: #FFFFFF;
+    border-right: 1px solid var(--color-border-default);
+  }
+
+  /* Auth 페이지 브랜드 패널 */
+  .bg-auth-brand {
+    background: linear-gradient(160deg, var(--navy-800) 0%, var(--navy-900) 60%, #0F1629 100%);
+  }
+}
+
+/* ── Animations ── */
+@layer components {
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0.01;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0.01;
+      transform: translateY(20px);
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes subtlePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .animate-fade-up {
+    animation: fadeSlideUp 0.5s ease-out both;
+  }
+
+  .animate-fade-in {
+    animation: fadeSlideIn 0.6s ease-out both;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Stagger children */
+  .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.1s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.2s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger > *:nth-child(6) { animation-delay: 0.3s; }
+}
+
+/* ── Component Styles ── */
+@layer components {
+  /* Premium card */
+  .card-surface {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-default);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 200ms ease, transform 200ms ease;
+  }
+
+  .card-surface:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Interactive card with lift */
+  .card-interactive {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border-default);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 200ms ease, transform 200ms ease, border-color 200ms ease;
+  }
+
+  .card-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-border-strong);
+  }
+
+  /* Premium button */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--navy-800);
+    color: white;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 150ms ease;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--navy-700);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(27, 37, 89, 0.2);
+  }
+
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: var(--color-text-primary);
+    font-weight: 500;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border-strong);
+    transition: all 150ms ease;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-bg-secondary);
+    border-color: var(--stone-400);
+  }
+
+  .btn-accent {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--amber-600);
+    color: white;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 150ms ease;
+  }
+
+  .btn-accent:hover {
+    background-color: var(--amber-700);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(212, 148, 10, 0.25);
+  }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -50,9 +50,9 @@ export default function ReservationsPage() {
 
   const statusColors: Record<string, string> = {
     PENDING: 'bg-yellow-100 text-yellow-700',
-    CONFIRMED: 'bg-blue-100 text-blue-700',
+    CONFIRMED: 'bg-brand-100 text-brand-800',
     COMPLETED: 'bg-green-100 text-green-700',
-    CANCELLED: 'bg-gray-100 text-gray-500',
+    CANCELLED: 'bg-surface-100 text-surface-500',
     NO_SHOW: 'bg-red-100 text-red-700',
   };
 
@@ -64,15 +64,15 @@ export default function ReservationsPage() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">예약 관리</h1>
-          <p className="mt-1 text-sm text-gray-500">예약을 확인하고 관리하세요.</p>
+          <h1 className="text-2xl font-bold text-surface-900">예약 관리</h1>
+          <p className="mt-1 text-sm text-surface-500">예약을 확인하고 관리하세요.</p>
         </div>
         <div className="flex gap-2">
           <div className="flex rounded-lg border bg-white">
-            <button onClick={() => setView('list')} className={`px-3 py-1.5 text-sm ${view === 'list' ? 'bg-brand-50 text-brand-700' : 'text-gray-500'}`}>
+            <button onClick={() => setView('list')} className={`px-3 py-1.5 text-sm ${view === 'list' ? 'bg-brand-50 text-brand-700' : 'text-surface-500'}`}>
               <List className="h-4 w-4" />
             </button>
-            <button onClick={() => setView('calendar')} className={`px-3 py-1.5 text-sm ${view === 'calendar' ? 'bg-brand-50 text-brand-700' : 'text-gray-500'}`}>
+            <button onClick={() => setView('calendar')} className={`px-3 py-1.5 text-sm ${view === 'calendar' ? 'bg-brand-50 text-brand-700' : 'text-surface-500'}`}>
               <Calendar className="h-4 w-4" />
             </button>
           </div>
@@ -92,38 +92,38 @@ export default function ReservationsPage() {
       </div>
 
       {showForm && (
-        <div className="mt-4 rounded-xl border bg-white p-6">
+        <div className="mt-4 card-surface p-6">
           <h3 className="text-lg font-semibold">새 예약 등록</h3>
           <form
             onSubmit={(e) => { e.preventDefault(); createMutation.mutate(form); }}
             className="mt-4 grid grid-cols-2 gap-4"
           >
             <div>
-              <label className="block text-sm font-medium text-gray-700">날짜</label>
+              <label className="block text-sm font-medium text-surface-700">날짜</label>
               <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} required className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">서비스</label>
+              <label className="block text-sm font-medium text-surface-700">서비스</label>
               <select value={form.serviceId} onChange={(e) => setForm({ ...form, serviceId: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm">
                 <option value="">선택</option>
                 {services?.map((s: Record<string, string>) => <option key={s.id} value={s.id}>{s.name}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">시작 시간</label>
+              <label className="block text-sm font-medium text-surface-700">시작 시간</label>
               <input type="time" value={form.startTime} onChange={(e) => setForm({ ...form, startTime: e.target.value })} required className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">종료 시간</label>
+              <label className="block text-sm font-medium text-surface-700">종료 시간</label>
               <input type="time" value={form.endTime} onChange={(e) => setForm({ ...form, endTime: e.target.value })} required className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700">메모</label>
+              <label className="block text-sm font-medium text-surface-700">메모</label>
               <textarea value={form.note} onChange={(e) => setForm({ ...form, note: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" rows={2} />
             </div>
             <div className="col-span-2 flex gap-2">
               <button type="submit" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">등록</button>
-              <button type="button" onClick={() => setShowForm(false)} className="rounded-lg border px-4 py-2 text-sm text-gray-600">취소</button>
+              <button type="button" onClick={() => setShowForm(false)} className="rounded-lg border px-4 py-2 text-sm text-surface-600">취소</button>
             </div>
           </form>
         </div>
@@ -132,15 +132,15 @@ export default function ReservationsPage() {
       <div className="mt-6 space-y-3">
         {reservations?.data?.length ? (
           reservations.data.map((r: Record<string, any>) => (
-            <div key={r.id} className="flex items-center justify-between rounded-xl border bg-white px-6 py-4">
+            <div key={r.id} className="flex items-center justify-between card-surface px-6 py-4">
               <div className="flex items-center gap-4">
                 <div className="text-center">
-                  <p className="text-lg font-bold text-gray-900">{r.startTime}</p>
-                  <p className="text-xs text-gray-400">{r.endTime}</p>
+                  <p className="text-lg font-bold text-surface-900">{r.startTime}</p>
+                  <p className="text-xs text-surface-400">{r.endTime}</p>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">{r.customer?.name || '미등록 고객'}</p>
-                  <p className="text-sm text-gray-500">{r.service?.name || '서비스 미지정'}</p>
+                  <p className="font-medium text-surface-900">{r.customer?.name || '미등록 고객'}</p>
+                  <p className="text-sm text-surface-500">{r.service?.name || '서비스 미지정'}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -161,7 +161,7 @@ export default function ReservationsPage() {
             </div>
           ))
         ) : (
-          <div className="rounded-xl border bg-white py-12 text-center text-gray-400">
+          <div className="card-surface py-12 text-center text-surface-400">
             {selectedDate} 예약이 없습니다.
           </div>
         )}

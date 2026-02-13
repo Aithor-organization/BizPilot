@@ -57,50 +57,50 @@ export default function BusinessProfilePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900">업종 프로필</h1>
-      <p className="mt-1 text-sm text-gray-500">비즈니스 기본 정보를 설정하세요.</p>
+      <h1 className="text-2xl font-bold text-surface-900">업종 프로필</h1>
+      <p className="mt-1 text-sm text-surface-500">비즈니스 기본 정보를 설정하세요.</p>
 
       <form onSubmit={(e) => { e.preventDefault(); saveMutation.mutate(form); }} className="mt-6 space-y-6">
-        <div className="rounded-xl border bg-white p-6">
+        <div className="card-surface p-6">
           <h3 className="text-lg font-semibold mb-4">기본 정보</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">상호명 *</label>
+              <label className="block text-sm font-medium text-surface-700">상호명 *</label>
               <input type="text" value={form.businessName} onChange={(e) => setForm({ ...form, businessName: e.target.value })} required className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">대표자명</label>
+              <label className="block text-sm font-medium text-surface-700">대표자명</label>
               <input type="text" value={form.ownerName} onChange={(e) => setForm({ ...form, ownerName: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">사업자등록번호</label>
+              <label className="block text-sm font-medium text-surface-700">사업자등록번호</label>
               <input type="text" value={form.bizNumber} onChange={(e) => setForm({ ...form, bizNumber: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" placeholder="000-00-00000" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">대표 전화번호</label>
+              <label className="block text-sm font-medium text-surface-700">대표 전화번호</label>
               <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700">주소</label>
+              <label className="block text-sm font-medium text-surface-700">주소</label>
               <input type="text" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
           </div>
         </div>
 
-        <div className="rounded-xl border bg-white p-6">
+        <div className="card-surface p-6">
           <h3 className="text-lg font-semibold mb-4">영업 시간</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">영업 시작</label>
+              <label className="block text-sm font-medium text-surface-700">영업 시작</label>
               <input type="time" value={form.openTime} onChange={(e) => setForm({ ...form, openTime: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">영업 종료</label>
+              <label className="block text-sm font-medium text-surface-700">영업 종료</label>
               <input type="time" value={form.closeTime} onChange={(e) => setForm({ ...form, closeTime: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
           </div>
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">휴무일</label>
+            <label className="block text-sm font-medium text-surface-700 mb-2">휴무일</label>
             <div className="flex gap-2">
               {dayLabels.map((label, i) => (
                 <button
@@ -110,7 +110,7 @@ export default function BusinessProfilePage() {
                   className={`flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
                     form.closedDays.includes(i)
                       ? 'bg-red-100 text-red-700 border-red-200 border'
-                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                      : 'bg-surface-100 text-surface-500 hover:bg-surface-200'
                   }`}
                 >
                   {label}

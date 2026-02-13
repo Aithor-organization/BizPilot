@@ -87,13 +87,13 @@ export default function NewInvoicePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900">새 견적서 작성</h1>
+      <h1 className="text-2xl font-bold text-surface-900">새 견적서 작성</h1>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-6">
-        <div className="rounded-xl border bg-white p-6">
+        <div className="card-surface p-6">
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">문서 유형</label>
+              <label className="block text-sm font-medium text-surface-700">문서 유형</label>
               <select value={type} onChange={(e) => setType(e.target.value)} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm">
                 <option value="ESTIMATE">견적서</option>
                 <option value="TAX_INVOICE">세금계산서</option>
@@ -101,20 +101,20 @@ export default function NewInvoicePage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">고객</label>
+              <label className="block text-sm font-medium text-surface-700">고객</label>
               <select value={customerId} onChange={(e) => setCustomerId(e.target.value)} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm">
                 <option value="">선택 안함</option>
                 {customers?.data?.map((c: Record<string, string>) => <option key={c.id} value={c.id}>{c.name}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">비고</label>
+              <label className="block text-sm font-medium text-surface-700">비고</label>
               <input type="text" value={note} onChange={(e) => setNote(e.target.value)} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
           </div>
         </div>
 
-        <div className="rounded-xl border bg-white p-6">
+        <div className="card-surface p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-semibold">항목</h3>
             <button type="button" onClick={addItem} className="flex items-center gap-1 rounded-lg border px-3 py-1.5 text-sm text-brand-600 hover:bg-brand-50">
@@ -124,7 +124,7 @@ export default function NewInvoicePage() {
 
           <table className="w-full">
             <thead>
-              <tr className="border-b text-left text-xs font-medium text-gray-500 uppercase">
+              <tr className="border-b text-left text-xs font-medium text-surface-500 uppercase">
                 <th className="pb-2 pr-4">서비스</th>
                 <th className="pb-2 pr-4">품목명</th>
                 <th className="pb-2 pr-4 w-20">수량</th>
@@ -153,7 +153,7 @@ export default function NewInvoicePage() {
                   </td>
                   <td className="py-2 text-sm font-medium">{formatCurrency(item.quantity * item.unitPrice)}</td>
                   <td className="py-2 pl-2">
-                    <button type="button" onClick={() => removeItem(i)} className="text-gray-400 hover:text-red-500"><Trash2 className="h-4 w-4" /></button>
+                    <button type="button" onClick={() => removeItem(i)} className="text-surface-400 hover:text-red-500"><Trash2 className="h-4 w-4" /></button>
                   </td>
                 </tr>
               ))}
@@ -162,8 +162,8 @@ export default function NewInvoicePage() {
 
           <div className="mt-4 flex justify-end">
             <div className="w-64 space-y-1 text-sm">
-              <div className="flex justify-between"><span className="text-gray-500">공급가액</span><span>{formatCurrency(subtotal)}</span></div>
-              {type === 'TAX_INVOICE' && <div className="flex justify-between"><span className="text-gray-500">세액 (10%)</span><span>{formatCurrency(taxAmount)}</span></div>}
+              <div className="flex justify-between"><span className="text-surface-500">공급가액</span><span>{formatCurrency(subtotal)}</span></div>
+              {type === 'TAX_INVOICE' && <div className="flex justify-between"><span className="text-surface-500">세액 (10%)</span><span>{formatCurrency(taxAmount)}</span></div>}
               <div className="flex justify-between border-t pt-2 text-lg font-bold"><span>합계</span><span>{formatCurrency(totalAmount)}</span></div>
             </div>
           </div>
@@ -173,7 +173,7 @@ export default function NewInvoicePage() {
           <button type="submit" className="rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-brand-700">
             저장
           </button>
-          <button type="button" onClick={() => router.back()} className="rounded-lg border px-6 py-2.5 text-sm text-gray-600">
+          <button type="button" onClick={() => router.back()} className="rounded-lg border px-6 py-2.5 text-sm text-surface-600">
             취소
           </button>
         </div>

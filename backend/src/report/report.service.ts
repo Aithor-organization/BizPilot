@@ -150,11 +150,23 @@ export class ReportService {
 
     const monthlyRevenue = monthlyTransactions.reduce((s, t) => s + t.amount, 0);
 
+    // Calculate AI auto-response rate from conversation data
+    let aiResponseRate = 0;
+    try {
+      const [totalConvs, autoResolved] = await Promise.all([
+        this.prisma.odConversation.count({ where: { tenantId } }),
+        this.prisma.odConversation.count({ where: { tenantId, status: 'RESOLVED' } }),
+      ]);
+      aiResponseRate = totalConvs > 0 ? Math.round((autoResolved / totalConvs) * 100) : 0;
+    } catch {
+      // OmniDesk tables may not exist yet
+    }
+
     return {
       todayReservations,
       monthlyRevenue,
       totalCustomers,
-      aiResponseRate: 0,
+      aiResponseRate,
       recentTransactions: recentTransactions.map((t) => ({
         id: t.id, description: t.description, category: t.category, amount: t.amount,
       })),

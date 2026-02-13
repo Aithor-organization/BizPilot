@@ -98,15 +98,62 @@ export const tenantApi = {
 // CS API (OmniDesk)
 export const csApi = {
   getConversations: (tenantId: string, params?: Record<string, unknown>) =>
-    api.get(`/tenants/${tenantId}/conversations`, { params }),
+    api.get(`/omnidesk/tenants/${tenantId}/conversations`, { params }),
   getConversation: (tenantId: string, id: string) =>
-    api.get(`/tenants/${tenantId}/conversations/${id}`),
+    api.get(`/omnidesk/tenants/${tenantId}/conversations/${id}`),
   sendMessage: (tenantId: string, id: string, content: string) =>
-    api.post(`/tenants/${tenantId}/conversations/${id}/messages`, { content }),
+    api.post(`/omnidesk/tenants/${tenantId}/conversations/${id}/messages`, { content }),
   getDocuments: (tenantId: string) =>
-    api.get(`/tenants/${tenantId}/knowledge/documents`),
+    api.get(`/omnidesk/tenants/${tenantId}/knowledge/documents`),
+  uploadDocument: (tenantId: string, formData: FormData) =>
+    api.post(`/omnidesk/tenants/${tenantId}/knowledge/documents`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      timeout: 30000,
+    }),
+  deleteDocument: (tenantId: string, id: string) =>
+    api.delete(`/omnidesk/tenants/${tenantId}/knowledge/documents/${id}`),
+  searchKnowledge: (tenantId: string, query: string, topK?: number) =>
+    api.post(`/omnidesk/tenants/${tenantId}/knowledge/search`, { query, topK }),
   getPatterns: (tenantId: string) =>
-    api.get(`/tenants/${tenantId}/brain/patterns`),
+    api.get(`/omnidesk/tenants/${tenantId}/brain/patterns`),
+  getBrainInsights: (tenantId: string) =>
+    api.get(`/omnidesk/tenants/${tenantId}/brain/insights`),
+};
+
+// Credit API
+export const creditApi = {
+  getBalance: (tenantId: string) =>
+    api.get(`/omnidesk/tenants/${tenantId}/credits`),
+  getTransactions: (tenantId: string, params?: Record<string, unknown>) =>
+    api.get(`/omnidesk/tenants/${tenantId}/credits/transactions`, { params }),
+  charge: (tenantId: string, amount: number) =>
+    api.post(`/omnidesk/tenants/${tenantId}/credits/charge`, { amount }),
+  verifyCharge: (tenantId: string, impUid: string, merchantUid: string) =>
+    api.post(`/omnidesk/tenants/${tenantId}/credits/charge/verify`, { impUid, merchantUid }),
+};
+
+// Widget API
+export const widgetApi = {
+  getAll: (tenantId: string) =>
+    api.get(`/omnidesk/tenants/${tenantId}/widgets`),
+  create: (tenantId: string, data: Record<string, unknown>) =>
+    api.post(`/omnidesk/tenants/${tenantId}/widgets`, data),
+  update: (tenantId: string, id: string, data: Record<string, unknown>) =>
+    api.patch(`/omnidesk/tenants/${tenantId}/widgets/${id}`, data),
+  delete: (tenantId: string, id: string) =>
+    api.delete(`/omnidesk/tenants/${tenantId}/widgets/${id}`),
+};
+
+// Channel API
+export const channelApi = {
+  getAll: (tenantId: string) =>
+    api.get(`/omnidesk/tenants/${tenantId}/channels`),
+  create: (tenantId: string, data: Record<string, unknown>) =>
+    api.post(`/omnidesk/tenants/${tenantId}/channels`, data),
+  update: (tenantId: string, id: string, data: Record<string, unknown>) =>
+    api.patch(`/omnidesk/tenants/${tenantId}/channels/${id}`, data),
+  delete: (tenantId: string, id: string) =>
+    api.delete(`/omnidesk/tenants/${tenantId}/channels/${id}`),
 };
 
 // Business Profile API

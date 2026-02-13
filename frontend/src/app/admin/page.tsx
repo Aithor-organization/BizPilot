@@ -17,48 +17,48 @@ export default function AdminPage() {
   if (user?.role !== 'ADMIN') {
     return (
       <div className="flex flex-col items-center justify-center py-20">
-        <Shield className="h-16 w-16 text-gray-300" />
-        <h2 className="mt-4 text-xl font-bold text-gray-900">접근 권한 없음</h2>
-        <p className="mt-2 text-gray-500">관리자 권한이 필요합니다.</p>
+        <Shield className="h-16 w-16 text-surface-300" />
+        <h2 className="mt-4 text-xl font-bold text-surface-900">접근 권한 없음</h2>
+        <p className="mt-2 text-surface-500">관리자 권한이 필요합니다.</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900">관리자</h1>
-      <p className="mt-1 text-sm text-gray-500">시스템 전체 현황을 관리합니다.</p>
+      <h1 className="text-2xl font-bold text-surface-900">관리자</h1>
+      <p className="mt-1 text-sm text-surface-500">시스템 전체 현황을 관리합니다.</p>
 
       <div className="mt-6 grid grid-cols-3 gap-4">
-        <div className="rounded-xl border bg-white p-6">
+        <div className="card-surface p-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50">
-              <Building2 className="h-5 w-5 text-blue-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50">
+              <Building2 className="h-5 w-5 text-brand-700" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">전체 테넌트</p>
-              <p className="text-2xl font-bold text-gray-900">{tenants?.data?.length ?? 0}</p>
+              <p className="text-sm text-surface-500">전체 테넌트</p>
+              <p className="text-2xl font-bold text-surface-900">{tenants?.data?.length ?? 0}</p>
             </div>
           </div>
         </div>
-        <div className="rounded-xl border bg-white p-6">
+        <div className="card-surface p-6">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-50">
               <Users className="h-5 w-5 text-green-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">전체 사용자</p>
-              <p className="text-2xl font-bold text-gray-900">-</p>
+              <p className="text-sm text-surface-500">전체 사용자</p>
+              <p className="text-2xl font-bold text-surface-900">-</p>
             </div>
           </div>
         </div>
-        <div className="rounded-xl border bg-white p-6">
+        <div className="card-surface p-6">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50">
               <Activity className="h-5 w-5 text-amber-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">시스템 상태</p>
+              <p className="text-sm text-surface-500">시스템 상태</p>
               <p className="text-lg font-bold text-green-600">정상</p>
             </div>
           </div>
@@ -66,13 +66,13 @@ export default function AdminPage() {
       </div>
 
       <div className="mt-8">
-        <h2 className="text-lg font-semibold text-gray-900">테넌트 목록</h2>
+        <h2 className="text-lg font-semibold text-surface-900">테넌트 목록</h2>
         <div className="mt-4 space-y-3">
           {tenants?.data?.map((tenant: Record<string, any>) => (
-            <div key={tenant.id} className="flex items-center justify-between rounded-xl border bg-white px-6 py-4">
+            <div key={tenant.id} className="flex items-center justify-between card-surface px-6 py-4">
               <div>
-                <p className="font-medium text-gray-900">{tenant.name}</p>
-                <p className="text-sm text-gray-500">{tenant.slug} | {tenant.businessType || 'GENERAL'}</p>
+                <p className="font-medium text-surface-900">{tenant.name}</p>
+                <p className="text-sm text-surface-500">{tenant.slug} | {tenant.businessType || 'GENERAL'}</p>
               </div>
               <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
                 활성
@@ -80,9 +80,9 @@ export default function AdminPage() {
             </div>
           ))}
           {!tenants?.data?.length && (
-            <div className="flex flex-col items-center justify-center rounded-xl border bg-white py-12">
-              <Building2 className="h-10 w-10 text-gray-300" />
-              <p className="mt-3 text-gray-400">등록된 테넌트가 없습니다.</p>
+            <div className="flex flex-col items-center justify-center card-surface py-12">
+              <Building2 className="h-10 w-10 text-surface-300" />
+              <p className="mt-3 text-surface-400">등록된 테넌트가 없습니다.</p>
             </div>
           )}
         </div>

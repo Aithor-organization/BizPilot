@@ -21,8 +21,11 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-600 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-app-surface">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-brand-800 border-t-transparent" />
+          <span className="text-sm text-surface-400">로딩 중...</span>
+        </div>
       </div>
     );
   }
@@ -30,7 +33,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-app-surface">
       <Sidebar />
       <main className="ml-64 p-8">{children}</main>
     </div>

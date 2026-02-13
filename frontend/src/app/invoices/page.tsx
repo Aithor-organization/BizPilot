@@ -30,11 +30,11 @@ export default function InvoicesPage() {
   });
 
   const statusColors: Record<string, string> = {
-    DRAFT: 'bg-gray-100 text-gray-600',
-    SENT: 'bg-blue-100 text-blue-700',
+    DRAFT: 'bg-surface-100 text-surface-600',
+    SENT: 'bg-brand-100 text-brand-800',
     PAID: 'bg-green-100 text-green-700',
     OVERDUE: 'bg-red-100 text-red-700',
-    CANCELLED: 'bg-gray-100 text-gray-400',
+    CANCELLED: 'bg-surface-100 text-surface-400',
   };
 
   const typeLabels: Record<string, string> = {
@@ -48,8 +48,8 @@ export default function InvoicesPage() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">견적/계산서</h1>
-          <p className="mt-1 text-sm text-gray-500">견적서와 세금계산서를 관리하세요.</p>
+          <h1 className="text-2xl font-bold text-surface-900">견적/계산서</h1>
+          <p className="mt-1 text-sm text-surface-500">견적서와 세금계산서를 관리하세요.</p>
         </div>
         <Link href="/invoices/new" className="flex items-center gap-1 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
           <Plus className="h-4 w-4" /> 새 견적서
@@ -74,20 +74,20 @@ export default function InvoicesPage() {
 
       <div className="mt-6 space-y-3">
         {invoices?.data?.map((inv: Record<string, unknown>) => (
-          <div key={inv.id as string} className="flex items-center justify-between rounded-xl border bg-white px-6 py-4">
+          <div key={inv.id as string} className="flex items-center justify-between card-surface px-6 py-4">
             <div className="flex items-center gap-4">
-              <FileText className="h-8 w-8 text-gray-400" />
+              <FileText className="h-8 w-8 text-surface-400" />
               <div>
                 <Link href={`/invoices/${inv.id}`} className="text-sm font-medium text-brand-600 hover:underline">
                   {inv.invoiceNumber as string}
                 </Link>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-surface-500">
                   {typeLabels[inv.type as string]} | {inv.customer ? (inv.customer as Record<string, string>).name : '미지정'} | {formatDate(inv.issueDate as string)}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-lg font-bold text-gray-900">{formatCurrency(inv.totalAmount as number)}</span>
+              <span className="text-lg font-bold text-surface-900">{formatCurrency(inv.totalAmount as number)}</span>
               <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${statusColors[inv.status as string] || ''}`}>
                 {statusLabels[inv.status as string]}
               </span>
@@ -105,7 +105,7 @@ export default function InvoicesPage() {
           </div>
         ))}
         {!invoices?.data?.length && (
-          <div className="rounded-xl border bg-white py-12 text-center text-gray-400">
+          <div className="card-surface py-12 text-center text-surface-400">
             견적서/계산서가 없습니다.
           </div>
         )}

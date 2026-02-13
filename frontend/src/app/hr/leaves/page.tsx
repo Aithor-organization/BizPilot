@@ -55,24 +55,24 @@ export default function LeavesPage() {
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">휴가 관리</h1>
+        <h1 className="text-2xl font-bold text-surface-900">휴가 관리</h1>
         <button onClick={() => setShowForm(true)} className="flex items-center gap-1 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
           <Plus className="h-4 w-4" /> 휴가 신청
         </button>
       </div>
 
       {showForm && (
-        <div className="mt-4 rounded-xl border bg-white p-6">
+        <div className="mt-4 card-surface p-6">
           <form onSubmit={(e) => { e.preventDefault(); createMutation.mutate({ ...form, days: parseFloat(form.days) }); }} className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">직원</label>
+              <label className="block text-sm font-medium text-surface-700">직원</label>
               <select value={form.employeeId} onChange={(e) => setForm({ ...form, employeeId: e.target.value })} required className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm">
                 <option value="">선택</option>
                 {employees?.map((e: Record<string, string>) => <option key={e.id} value={e.id}>{e.name}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">유형</label>
+              <label className="block text-sm font-medium text-surface-700">유형</label>
               <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm">
                 <option value="ANNUAL">연차</option>
                 <option value="SICK">병가</option>
@@ -81,24 +81,24 @@ export default function LeavesPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">일수</label>
+              <label className="block text-sm font-medium text-surface-700">일수</label>
               <input type="number" step="0.5" min="0.5" value={form.days} onChange={(e) => setForm({ ...form, days: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">시작일</label>
+              <label className="block text-sm font-medium text-surface-700">시작일</label>
               <input type="date" value={form.startDate} onChange={(e) => setForm({ ...form, startDate: e.target.value })} required className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">종료일</label>
+              <label className="block text-sm font-medium text-surface-700">종료일</label>
               <input type="date" value={form.endDate} onChange={(e) => setForm({ ...form, endDate: e.target.value })} required className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">사유</label>
+              <label className="block text-sm font-medium text-surface-700">사유</label>
               <input type="text" value={form.reason} onChange={(e) => setForm({ ...form, reason: e.target.value })} className="mt-1 block w-full rounded-lg border px-3 py-2 text-sm" />
             </div>
             <div className="col-span-3 flex gap-2">
               <button type="submit" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white">신청</button>
-              <button type="button" onClick={() => setShowForm(false)} className="rounded-lg border px-4 py-2 text-sm text-gray-600">취소</button>
+              <button type="button" onClick={() => setShowForm(false)} className="rounded-lg border px-4 py-2 text-sm text-surface-600">취소</button>
             </div>
           </form>
         </div>
@@ -106,13 +106,13 @@ export default function LeavesPage() {
 
       <div className="mt-6 space-y-3">
         {leaves?.map((leave: Record<string, any>) => (
-          <div key={leave.id as string} className="flex items-center justify-between rounded-xl border bg-white px-6 py-4">
+          <div key={leave.id as string} className="flex items-center justify-between card-surface px-6 py-4">
             <div>
-              <p className="font-medium text-gray-900">{(leave.employee as Record<string, string>)?.name}</p>
-              <p className="text-sm text-gray-500">
+              <p className="font-medium text-surface-900">{(leave.employee as Record<string, string>)?.name}</p>
+              <p className="text-sm text-surface-500">
                 {typeLabels[leave.type as string]} | {formatDate(leave.startDate as string)} ~ {formatDate(leave.endDate as string)} ({String(leave.days)}일)
               </p>
-              {leave.reason && <p className="text-xs text-gray-400">{String(leave.reason)}</p>}
+              {leave.reason && <p className="text-xs text-surface-400">{String(leave.reason)}</p>}
             </div>
             <div className="flex items-center gap-2">
               <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${statusColors[leave.status as string] || ''}`}>
@@ -131,7 +131,7 @@ export default function LeavesPage() {
             </div>
           </div>
         ))}
-        {!leaves?.length && <div className="rounded-xl border bg-white py-12 text-center text-gray-400">휴가 신청이 없습니다.</div>}
+        {!leaves?.length && <div className="card-surface py-12 text-center text-surface-400">휴가 신청이 없습니다.</div>}
       </div>
     </div>
   );
