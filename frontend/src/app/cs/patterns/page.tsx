@@ -29,7 +29,7 @@ export default function PatternsPage() {
       </div>
 
       <div className="mt-6 space-y-3">
-        {patterns?.data?.map((pattern: Record<string, any>) => (
+        {patterns?.items?.map((pattern: Record<string, any>) => (
           <div key={pattern.id} className="card-surface px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -37,8 +37,8 @@ export default function PatternsPage() {
                   <Brain className="h-5 w-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="font-medium text-surface-900">{pattern.pattern || pattern.trigger}</p>
-                  <p className="text-sm text-surface-500 line-clamp-1">{pattern.response}</p>
+                  <p className="font-medium text-surface-900">{pattern.pattern || pattern.trigger || pattern.context}</p>
+                  <p className="text-sm text-surface-500 line-clamp-1">{pattern.response || pattern.content}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -51,7 +51,7 @@ export default function PatternsPage() {
             </div>
           </div>
         ))}
-        {!patterns?.data?.length && (
+        {!patterns?.items?.length && (
           <div className="flex flex-col items-center justify-center card-surface py-16">
             <Brain className="h-12 w-12 text-surface-300" />
             <p className="mt-4 text-surface-400">학습된 패턴이 없습니다.</p>

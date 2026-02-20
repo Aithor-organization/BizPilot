@@ -37,7 +37,7 @@ export default function AdminPage() {
             </div>
             <div>
               <p className="text-sm text-surface-500">전체 테넌트</p>
-              <p className="text-2xl font-bold text-surface-900">{tenants?.data?.length ?? 0}</p>
+              <p className="text-2xl font-bold text-surface-900">{Array.isArray(tenants) ? tenants.length : 0}</p>
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function AdminPage() {
       <div className="mt-8">
         <h2 className="text-lg font-semibold text-surface-900">테넌트 목록</h2>
         <div className="mt-4 space-y-3">
-          {tenants?.data?.map((tenant: Record<string, any>) => (
+          {Array.isArray(tenants) && tenants.map((tenant: Record<string, any>) => (
             <div key={tenant.id} className="flex items-center justify-between card-surface px-6 py-4">
               <div>
                 <p className="font-medium text-surface-900">{tenant.name}</p>
@@ -79,7 +79,7 @@ export default function AdminPage() {
               </span>
             </div>
           ))}
-          {!tenants?.data?.length && (
+          {(!tenants || (Array.isArray(tenants) && tenants.length === 0)) && (
             <div className="flex flex-col items-center justify-center card-surface py-12">
               <Building2 className="h-10 w-10 text-surface-300" />
               <p className="mt-3 text-surface-400">등록된 테넌트가 없습니다.</p>

@@ -159,25 +159,24 @@ export default function KnowledgePage() {
             <p className="text-sm text-brand-700">문서를 업로드하고 있습니다...</p>
           </div>
         )}
-        {documents?.data?.map((doc: Record<string, any>) => (
+        {Array.isArray(documents) && documents.map((doc: Record<string, any>) => (
           <div key={doc.id} className="flex items-center justify-between card-surface px-6 py-4">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50">
                 <FileText className="h-5 w-5 text-brand-700" />
               </div>
               <div>
-                <p className="font-medium text-surface-900">{doc.title || doc.filename}</p>
+                <p className="font-medium text-surface-900">{doc.title || doc.fileName}</p>
                 <p className="text-sm text-surface-500">
                   {doc.chunkCount ?? 0}개 청크 | {formatDateTime(doc.createdAt)}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                doc.status === 'READY' ? 'bg-green-100 text-green-700' :
-                doc.status === 'FAILED' ? 'bg-red-100 text-red-700' :
-                'bg-yellow-100 text-yellow-700'
-              }`}>
+              <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${doc.status === 'READY' ? 'bg-green-100 text-green-700' :
+                  doc.status === 'FAILED' ? 'bg-red-100 text-red-700' :
+                    'bg-yellow-100 text-yellow-700'
+                }`}>
                 {doc.status === 'READY' ? '처리 완료' : doc.status === 'FAILED' ? '실패' : '처리 중'}
               </span>
               <button
@@ -189,7 +188,7 @@ export default function KnowledgePage() {
             </div>
           </div>
         ))}
-        {!documents?.data?.length && !uploadMutation.isPending && (
+        {(!documents || (Array.isArray(documents) && documents.length === 0)) && !uploadMutation.isPending && (
           <div className="flex flex-col items-center justify-center card-surface py-16">
             <FileText className="h-12 w-12 text-surface-300" />
             <p className="mt-4 text-surface-400">등록된 문서가 없습니다.</p>

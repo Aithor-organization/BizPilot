@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import { authApi } from '@/lib/api';
+import { authApi, tenantApi } from '@/lib/api';
 
 interface User {
   id: string;
@@ -38,6 +38,19 @@ export const useAuth = create<AuthState>((set) => ({
     const { accessToken, user } = res.data;
     localStorage.setItem('accessToken', accessToken);
     set({ user });
+
+    // 로그인 후 테넌트 자동 선택
+    try {
+      const tenantRes = await tenantApi.list();
+      const tenants = tenantRes.data;
+      if (tenants.length > 0) {
+        const tid = tenants[0].id;
+        localStorage.setItem('tenantId', tid);
+        set({ tenantId: tid });
+      }
+    } catch {
+      // 테넌트 로드 실패 시 무시
+    }
   },
 
   logout: async () => {
@@ -55,6 +68,21 @@ export const useAuth = create<AuthState>((set) => ({
     try {
       const res = await authApi.getProfile();
       set({ user: res.data, isLoading: false });
+
+      // tenantId가 없으면 자동 로드
+      const currentTenantId = localStorage.getItem('tenantId');
+      if (!currentTenantId) {
+        try {
+          const tenantRes = await tenantApi.list();
+          const tenants = tenantRes.data;
+          if (tenants.length > 0) {
+            localStorage.setItem('tenantId', tenants[0].id);
+            set({ tenantId: tenants[0].id });
+          }
+        } catch {
+          // 테넌트 로드 실패 시 무시
+        }
+      }
     } catch {
       set({ user: null, isLoading: false });
     }

@@ -21,8 +21,8 @@ export class CrmService {
   }
 
   async findAll(tenantId: string, query: { search?: string; tags?: string; page?: number; limit?: number }) {
-    const page = query.page ?? 1;
-    const limit = query.limit ?? 20;
+    const page = Number(query.page) || 1;
+    const limit = Number(query.limit) || 20;
     const where: Record<string, unknown> = { tenantId };
 
     if (query.search) {

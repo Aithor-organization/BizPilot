@@ -44,7 +44,7 @@ export default function CsPage() {
       </div>
 
       <div className="mt-6 space-y-3">
-        {conversations?.data?.map((conv: Record<string, unknown>) => (
+        {conversations?.items?.map((conv: Record<string, unknown>) => (
           <Link key={conv.id as string} href={`/cs/${conv.id}`} className="block card-surface px-6 py-4 hover:border-brand-200 transition-all">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -65,7 +65,7 @@ export default function CsPage() {
             </div>
           </Link>
         ))}
-        {!conversations?.data?.length && (
+        {!conversations?.items?.length && (
           <div className="flex flex-col items-center justify-center card-surface py-16">
             <MessageSquare className="h-12 w-12 text-surface-300" />
             <p className="mt-4 text-surface-400">아직 대화가 없습니다.</p>
