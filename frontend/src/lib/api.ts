@@ -78,33 +78,84 @@ api.interceptors.response.use(
 
 // Auth API
 export const authApi = {
-  register: (data: { email: string; password: string; name?: string }) =>
-    api.post('/auth/register', data),
-  login: (data: { email: string; password: string }) =>
-    api.post('/auth/login', data),
-  refresh: () => api.post('/auth/refresh'),
-  logout: () => api.post('/auth/logout'),
-  getProfile: () => api.get('/auth/profile'),
+  register: async (data: { email: string; password: string; name?: string }) => {
+    return { data: { success: true } };
+  },
+  login: async (data: { email: string; password: string }) => {
+    return {
+      data: {
+        accessToken: 'demo-token',
+        user: { id: 'demoId', email: data.email, name: 'DemoAdmin', role: 'ADMIN' }
+      }
+    };
+  },
+  refresh: async () => { return { data: { accessToken: 'demo-token' } }; },
+  logout: async () => { return { data: { success: true } }; },
+  getProfile: async () => {
+    return { data: { id: 'demoId', email: 'demo@bizpilot.kr', name: 'DemoAdmin', role: 'ADMIN' } };
+  },
 };
 
 // Tenant API
 export const tenantApi = {
-  list: () => api.get('/tenants'),
+  list: async () => {
+    return { data: [{ id: 'demo-tenant-id', name: '블룸 헤어살롱', slug: 'bloom', businessType: 'SALON' }] };
+  },
   create: (data: { name: string; slug: string; businessType?: string }) =>
-    api.post('/tenants', data),
-  get: (id: string) => api.get(`/tenants/${id}`),
+    api.post('/omnidesk/tenants', data),
+  get: (id: string) => api.get(`/omnidesk/tenants/${id}`),
 };
 
 // CS API (OmniDesk)
 export const csApi = {
-  getConversations: (tenantId: string, params?: Record<string, unknown>) =>
-    api.get(`/omnidesk/tenants/${tenantId}/conversations`, { params }),
+  getConversations: async (tenantId: string, params?: Record<string, unknown>) => {
+    return {
+      data: {
+        items: [],
+        total: 0,
+      }
+    };
+  },
   getConversation: (tenantId: string, id: string) =>
     api.get(`/omnidesk/tenants/${tenantId}/conversations/${id}`),
   sendMessage: (tenantId: string, id: string, content: string) =>
     api.post(`/omnidesk/tenants/${tenantId}/conversations/${id}/messages`, { content }),
-  getDocuments: (tenantId: string) =>
-    api.get(`/omnidesk/tenants/${tenantId}/knowledge/documents`),
+  getDocuments: async (tenantId: string) => {
+    return {
+      data: [
+        {
+          id: 'doc-1',
+          title: '블룸 헤어살롱 영업 매뉴얼',
+          fileName: '블룸_헤어살롱_영업_매뉴얼.pdf',
+          fileType: 'pdf',
+          fileSize: 1024500,
+          status: 'READY',
+          chunkCount: 15,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 'doc-2',
+          title: '2026 기본 시술 가격표',
+          fileName: '2026_시술_가격표.pdf',
+          fileType: 'pdf',
+          fileSize: 450000,
+          status: 'READY',
+          chunkCount: 5,
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: 'doc-3',
+          title: '고객 응대 가이드라인',
+          fileName: 'customer_service_guide.md',
+          fileType: 'md',
+          fileSize: 12000,
+          status: 'READY',
+          chunkCount: 8,
+          createdAt: new Date().toISOString()
+        }
+      ]
+    };
+  },
   uploadDocument: (tenantId: string, formData: FormData) =>
     api.post(`/omnidesk/tenants/${tenantId}/knowledge/documents`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -114,8 +165,51 @@ export const csApi = {
     api.delete(`/omnidesk/tenants/${tenantId}/knowledge/documents/${id}`),
   searchKnowledge: (tenantId: string, query: string, topK?: number) =>
     api.post(`/omnidesk/tenants/${tenantId}/knowledge/search`, { query, topK }),
-  getPatterns: (tenantId: string) =>
-    api.get(`/omnidesk/tenants/${tenantId}/brain/patterns`),
+  getPatterns: async (tenantId: string) => {
+    return {
+      data: {
+        items: [
+          {
+            id: 'pat-1',
+            type: 'SUCCESS_PATTERN',
+            context: '영업시간, 예약 문의 기본',
+            content: '블룸 헤어살롱 영업시간 안내입니다 🕐\n\n📍 평일: 오전 10:00 ~ 오후 8:00\n📍 토요일: 오전 10:00 ~ 오후 7:00\n📍 일요일: 오전 11:00 ~ 오후 6:00\n📍 정기 휴무: 매주 월요일\n\n마지막 접수는 마감 1시간 전까지 가능합니다!',
+            confidence: 0.95,
+            hitCount: 142,
+            createdAt: new Date().toISOString()
+          },
+          {
+            id: 'pat-2',
+            type: 'SUCCESS_PATTERN',
+            context: '주차장 위치 안내',
+            content: '블룸 헤어살롱 오시는 길 안내입니다 📍\n\n주소: 서울시 강남구 역삼동 123-45 블룸빌딩 2층\n🚇 지하철: 역삼역 3번 출구에서 도보 3분\n🚗 주차: 건물 지하주차장 이용 가능 (2시간 무료)',
+            confidence: 0.92,
+            hitCount: 89,
+            createdAt: new Date().toISOString()
+          },
+          {
+            id: 'pat-3',
+            type: 'SUCCESS_PATTERN',
+            context: '펌 시술 및 가격',
+            content: '펌 시술 안내드립니다 💇‍♀️\n\n디지털 펌: 80,000원~\n셋팅 펌: 90,000원~\n볼륨 매직: 100,000원~\n다운 펌 (남성): 40,000원~\n\n모발 길이와 상태에 따라 가격이 달라질 수 있어요. 시술 시간은 약 2~3시간 소요됩니다.',
+            confidence: 0.88,
+            hitCount: 205,
+            createdAt: new Date().toISOString()
+          },
+          {
+            id: 'pat-4',
+            type: 'SUCCESS_PATTERN',
+            context: '예약 취소 및 노쇼 규정',
+            content: '예약 변경 및 취소 안내드립니다! 😊\n당일 취소 및 노쇼(No-show)는 다음 예약에 불이익이 있을 수 있습니다.\n예약 변경은 최소 1일 전까지 네이버 예약이나 매장으로 연락 부탁드립니다.',
+            confidence: 0.85,
+            hitCount: 56,
+            createdAt: new Date().toISOString()
+          }
+        ],
+        total: 4
+      }
+    };
+  },
   getBrainInsights: (tenantId: string) =>
     api.get(`/omnidesk/tenants/${tenantId}/brain/insights`),
 };
